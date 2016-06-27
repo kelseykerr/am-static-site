@@ -13,7 +13,6 @@ angular
     'ngAnimate',
     'ngResource',
     'ngRoute',
-    'ngSanitize',
     'ngTouch',
     'angularGrid'
   ])
