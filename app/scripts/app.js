@@ -11,8 +11,6 @@
 angular
   .module('amSiteApp', [
     'ngAnimate',
-    'ngCookies',
-    'ngMessages',
     'ngResource',
     'ngRoute',
     'ngSanitize',
