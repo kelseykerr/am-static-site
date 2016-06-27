@@ -1,0 +1,24 @@
+<div class="background photography">
+  <div
+    class="cards-wrap"
+    angular-grid="photography.photos"
+    grid-width="300"
+    gutter-size="12"
+    angular-grid-id="galleryPhotos">
+    <div class="card" ng-model="photography.photos"
+         ng-repeat="photo in photography.photos track by $index">
+      <div class="photo">
+        <a ng-href="" class="cursor-pointer" ng-click="photo.showDetails = !photo.showDetails">
+          <img class="grid-img" ng-class="{'with-description': photo.showDetails}"
+               ng-src="{{photo.path}}">
+        </a>
+      </div>
+      <div class="inside" ng-if="photo.showDetails">
+          <div
+               class="description">
+            {{photo.title}}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
