@@ -25,6 +25,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+var rewriteModule = require('http-rewrite-middleware');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -75,11 +77,18 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      rules: [
+                  // Internal rewrite
+                  {from: '^/app/(.*)$', to: '/$1'}
+              ],
       livereload: {
         options: {
           open: true,
           middleware: function (connect) {
             return [
+             rewriteModule.getMiddleware([
+                      {from: '^/app/(.*)', to: '/$1'}
+                    ]),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -220,7 +229,7 @@ module.exports = function (grunt) {
             }
           }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -426,6 +435,8 @@ module.exports = function (grunt) {
     }
   });
 
+grunt.loadNpmTasks('grunt-contrib-connect');
+grunt.loadNpmTasks('grunt-connect-rewrite');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {

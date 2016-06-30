@@ -8,13 +8,24 @@
  * Controller of the amSiteApp
  */
 angular.module('amSiteApp')
-  .controller('PhotographyCtrl', ['$scope', '$route', 'photos', function ($scope, $route, photos) {
+  .controller('PhotographyCtrl', ['$scope', '$route', '$http',
+   function ($scope, $route, $http) {
      $scope.$route = $route;
      $scope.photography = {
-      photos: photos
-     };
-     $scope.photographySearch = undefined;
+      photos: [],
 
-     $scope.$watch('photographySearch', function () {
-     });
+      loadPhotos: function() {
+        $http.get('images.json')
+               .then(function(res){
+                  $scope.photography.photos = res.data;
+                });
+      },
+
+      init: function () {
+        $scope.photography.loadPhotos();
+      }
+     };
+
+     $scope.photography.init();
+
   }]);
